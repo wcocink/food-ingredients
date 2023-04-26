@@ -4,9 +4,11 @@ import com.will.ingredients.entity.IngredientRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
 @ApplicationScoped
+@Transactional
 public class IngredientController {
 
     @Inject
@@ -17,6 +19,7 @@ public class IngredientController {
     }
 
     public Response listIngredients() {
+        ingredientRepository.findAll();
         return Response.status(Response.Status.OK).build();
     }
 

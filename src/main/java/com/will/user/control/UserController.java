@@ -2,8 +2,12 @@ package com.will.user.control;
 
 import com.will.user.entity.UserRequest;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
+@ApplicationScoped
+@Transactional
 public class UserController {
 
 
