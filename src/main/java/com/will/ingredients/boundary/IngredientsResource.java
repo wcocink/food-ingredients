@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/ingredient")
+@Path("/ingredients")
 public class IngredientsResource {
 
     @Inject
@@ -27,11 +27,27 @@ public class IngredientsResource {
         return ingredientController.listIngredients();
     }
 
+    @GET
+    @Path("/{ingredientId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getIngredientById(@PathParam("ingredientId") Long ingredientId) {
+        return ingredientController.getIngredientById(ingredientId);
+    }
+
     @PUT
+    @Path("/{ingredientId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateIngredient(IngredientRequest ingredientRequest) {
-        return ingredientController.updateIngredient(ingredientRequest);
+    public Response updateIngredient(@PathParam("ingredientId") Long ingredientId, IngredientRequest ingredientRequest) {
+        return ingredientController.updateIngredient(ingredientId, ingredientRequest);
+    }
+
+    @PATCH
+    @Path("/{ingredientId}/quantities/{quantity}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateIngredientQuantity(@PathParam("ingredientId") Long ingredientId, @PathParam("quantity") Double quantity) {
+        return ingredientController.updateIngredientQuantity(ingredientId, quantity);
     }
 
     @DELETE
