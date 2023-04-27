@@ -11,6 +11,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(name="quantity_in_kg")
     private Double quantityInKg;
 
     public Ingredient() {
