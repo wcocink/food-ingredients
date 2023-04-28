@@ -12,6 +12,7 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    @Column(name = "cellphone_number")
     private String cellphoneNumber;
 
     public User() {

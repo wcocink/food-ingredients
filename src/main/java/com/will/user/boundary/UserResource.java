@@ -28,10 +28,11 @@ public class UserResource {
     }
 
     @PUT
+    @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(UserRequest userRequest) {
-        return userController.updateUser(userRequest);
+    public Response updateUser(@PathParam("userId") Long userId, UserRequest userRequest) {
+        return userController.updateUser(userId, userRequest);
     }
 
     @DELETE
