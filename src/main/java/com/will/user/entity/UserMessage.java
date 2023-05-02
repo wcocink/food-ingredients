@@ -6,6 +6,15 @@ public class UserMessage {
     private String email;
     private String cellphoneNumber;
 
+    public UserMessage() {
+    }
+
+    public UserMessage(String name, String email, String cellphoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.cellphoneNumber = cellphoneNumber;
+    }
+
     public String getName() {
         return name;
     }
