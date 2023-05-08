@@ -1,6 +1,5 @@
 package com.will.user.boundary;
 
-import com.will.user.control.UserRepository;
 import com.will.user.entity.UserRequest;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -9,7 +8,6 @@ import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 
-import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
 
 import static io.restassured.RestAssured.given;
@@ -19,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestHTTPEndpoint(UserResource.class)
 public class UserResourceTest {
-
-    @Inject
-    UserRepository userRepository;
 
     @Test
     @DisplayName("Should create an user successfully")
@@ -69,6 +64,17 @@ public class UserResourceTest {
                 .body(JsonbBuilder.create().toJson(userRequest))
                 .when()
                 .put("/1")
+                .then().statusCode(204);
+    }
+
+    @Test
+    @DisplayName("Should return 204, user deleted")
+    @Order(4)
+    public void deleteUser(){
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/1")
                 .then().statusCode(204);
     }
 

@@ -1,13 +1,13 @@
 package com.will.user.control;
 
-import com.will.ingredients.entity.Ingredient;
 import com.will.user.entity.User;
 import com.will.user.entity.UserRequest;
 import com.will.user.entity.UserResponse;
+import com.will.user.exceptions.CreateUserException;
+import com.will.user.exceptions.ExceptionCode;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
@@ -20,7 +20,11 @@ public class UserController {
 
     public Response createUser(UserRequest userRequest) {
         var user = mapUserRequestToUser(userRequest);
-        userRepository.persist(user);
+        try{
+            userRepository.persist(user);
+        }catch (Exception e){
+            throw new CreateUserException(ExceptionCode.F_I_001, e.getMessage());
+        }
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
 
