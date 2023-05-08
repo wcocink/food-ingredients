@@ -3,9 +3,11 @@ package com.will.user.control;
 import com.will.ingredients.entity.Ingredient;
 import com.will.user.entity.User;
 import com.will.user.entity.UserRequest;
+import com.will.user.entity.UserResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
@@ -17,8 +19,9 @@ public class UserController {
     UserRepository userRepository;
 
     public Response createUser(UserRequest userRequest) {
-        userRepository.persist(mapUserRequestToUser(userRequest));
-        return Response.status(Response.Status.CREATED).build();
+        var user = mapUserRequestToUser(userRequest);
+        userRepository.persist(user);
+        return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
 
     public Response listUsers() {
@@ -55,6 +58,14 @@ public class UserController {
         user.setEmail(userRequest.getEmail());
         user.setCellphoneNumber(userRequest.getCellphoneNumber());
         return user;
+    }
+
+    private UserResponse mapUserToUserResponse(User user){
+        var userResponse = new UserResponse();
+        userResponse.setName(user.getName());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setCellphoneNumber(user.getCellphoneNumber());
+        return userResponse;
     }
 
 }

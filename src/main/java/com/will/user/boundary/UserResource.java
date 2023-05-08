@@ -2,6 +2,7 @@ package com.will.user.boundary;
 
 import com.will.user.control.UserController;
 import com.will.user.entity.UserRequest;
+import com.will.user.entity.UserResponse;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
