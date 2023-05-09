@@ -3,7 +3,7 @@ package com.will.user.control;
 import com.will.user.entity.User;
 import com.will.user.entity.UserRequest;
 import com.will.user.entity.UserResponse;
-import com.will.user.exceptions.ExceptionCode;
+import com.will.user.exceptions.UserExceptionCode;
 import com.will.user.exceptions.UserException;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -23,7 +23,7 @@ public class UserController {
         try{
             userRepository.persist(user);
         }catch (Exception e){
-            throw new UserException(ExceptionCode.F_I_001, e.getMessage());
+            throw new UserException(UserExceptionCode.F_I_001, e.getMessage());
         }
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
@@ -42,7 +42,7 @@ public class UserController {
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
         }catch (Exception e){
-            throw new UserException(ExceptionCode.F_I_002, e.getMessage());
+            throw new UserException(UserExceptionCode.F_I_002, e.getMessage());
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -55,7 +55,7 @@ public class UserController {
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
         }catch (Exception e){
-            throw new UserException(ExceptionCode.F_I_003, e.getMessage());
+            throw new UserException(UserExceptionCode.F_I_003, e.getMessage());
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
