@@ -11,6 +11,8 @@ public class UserExceptionHandler implements ExceptionMapper<UserException> {
     @Override
     public Response toResponse(UserException e) {
         return Response.status(Response.Status.BAD_REQUEST)
-                .entity(JsonbBuilder.create().toJson(new UserExceptionResponse(e.getMessage(), e.getExceptionCode()))).build();
+                .entity(JsonbBuilder.create().toJson(
+                        new UserExceptionResponse(
+                                e.getMessage(), e.getExceptionCode().getCode(), e.getExceptionCode().getFriendlyMessage()))).build();
     }
 }

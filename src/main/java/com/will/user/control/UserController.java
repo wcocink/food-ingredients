@@ -3,8 +3,8 @@ package com.will.user.control;
 import com.will.user.entity.User;
 import com.will.user.entity.UserRequest;
 import com.will.user.entity.UserResponse;
-import com.will.user.exceptions.CreateUserException;
 import com.will.user.exceptions.ExceptionCode;
+import com.will.user.exceptions.UserException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class UserController {
         try{
             userRepository.persist(user);
         }catch (Exception e){
-            throw new CreateUserException(ExceptionCode.F_I_001, e.getMessage());
+            throw new UserException(ExceptionCode.F_I_001, e.getMessage());
         }
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
@@ -34,20 +34,28 @@ public class UserController {
 
     public Response updateUser(Long userId, UserRequest userRequest) {
         var user = findUserById(userId);
-        if(user != null){
-            user.setName(userRequest.getName());
-            user.setEmail(userRequest.getEmail());
-            user.setCellphoneNumber(userRequest.getCellphoneNumber());
-            return Response.status(Response.Status.NO_CONTENT).build();
+        try{
+            if(user != null){
+                user.setName(userRequest.getName());
+                user.setEmail(userRequest.getEmail());
+                user.setCellphoneNumber(userRequest.getCellphoneNumber());
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+        }catch (Exception e){
+            throw new UserException(ExceptionCode.F_I_002, e.getMessage());
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     public Response deleteUser(Long userId) {
         var user = findUserById(userId);
-        if(user != null){
-            userRepository.delete(user);
-            return Response.status(Response.Status.NO_CONTENT).build();
+        try{
+            if(user != null){
+                userRepository.delete(user);
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+        }catch (Exception e){
+            throw new UserException(ExceptionCode.F_I_003, e.getMessage());
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }

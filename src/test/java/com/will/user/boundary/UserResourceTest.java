@@ -1,5 +1,8 @@
 package com.will.user.boundary;
 
+import com.will.user.control.UserController;
+import com.will.user.control.UserRepository;
+import com.will.user.entity.User;
 import com.will.user.entity.UserRequest;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -7,7 +10,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
 
+import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
 
 import static io.restassured.RestAssured.given;
@@ -38,8 +43,30 @@ public class UserResourceTest {
     }
 
     @Test
-    @DisplayName("Should return all users created")
+    @DisplayName("Should throw a 400, with an exception handled message")
     @Order(2)
+    public void createUserFailTest(){
+        var userRequest = new UserRequest();
+        userRequest.setName("foo");
+        userRequest.setEmail("foo.bar@foobar.foo");
+        userRequest.setCellphoneNumber("12345678");
+
+//        UserController uc = Mockito.mock(UserController.class);
+//        Mockito.when(uc.createUser(Mockito.any())).thenThrow(Exception.class);
+
+        Response response = given()
+                .contentType(ContentType.JSON).body(JsonbBuilder.create().toJson(userRequest))
+                .when()
+                .post()
+                .then()
+                .extract().response();
+
+        assertEquals(400, response.statusCode());
+    }
+
+    @Test
+    @DisplayName("Should return all users created")
+    @Order(3)
     public void listUsers(){
         given()
                 .contentType(ContentType.JSON)
@@ -52,7 +79,7 @@ public class UserResourceTest {
 
     @Test
     @DisplayName("Should return 204, user updated")
-    @Order(3)
+    @Order(4)
     public void updateUser(){
         var userRequest = new UserRequest();
         userRequest.setName("fooUpdated");
@@ -69,7 +96,7 @@ public class UserResourceTest {
 
     @Test
     @DisplayName("Should return 204, user deleted")
-    @Order(4)
+    @Order(5)
     public void deleteUser(){
         given()
                 .contentType(ContentType.JSON)
