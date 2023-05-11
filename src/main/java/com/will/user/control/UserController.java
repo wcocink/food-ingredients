@@ -20,11 +20,7 @@ public class UserController {
 
     public Response createUser(UserRequest userRequest) {
         var user = mapUserRequestToUser(userRequest);
-        try{
-            userRepository.persist(user);
-        }catch (Exception e){
-            throw new UserException(UserExceptionCode.F_I_001, e.getMessage());
-        }
+        userRepository.persist(user);
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
 

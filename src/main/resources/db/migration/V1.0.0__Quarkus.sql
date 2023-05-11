@@ -1,8 +1,9 @@
 CREATE TABLE USERS (
-                       id bigserial not null primary key,
+                       id bigserial not null,
                        name VARCHAR not null,
                        email VARCHAR not null,
-                       cellphone_number VARCHAR not null
+                       cellphone_number VARCHAR not null,
+                       primary key (id, email)
 );
 INSERT INTO USERS(name, email, cellphone_number)
 VALUES ('Willian', 'test@test.com', '1234556789');
