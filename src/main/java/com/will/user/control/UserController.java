@@ -8,8 +8,11 @@ import com.will.user.exceptions.UserException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @Transactional
@@ -18,16 +21,22 @@ public class UserController {
     @Inject
     UserRepository userRepository;
 
+    public List<UserResponse> listUsers() {
+        return userRepository.findAll().stream().map(this::mapUserToUserResponse).collect(Collectors.toList());
+    }
+
+    @Transactional
     public Response createUser(UserRequest userRequest) {
         var user = mapUserRequestToUser(userRequest);
-        userRepository.persist(user);
+        try{
+            userRepository.persist(user);
+        }catch (PersistenceException e){
+            throw new UserException(UserExceptionCode.F_I_001);
+        }
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
 
-    public Response listUsers() {
-        return Response.ok(userRepository.findAll().list()).build();
-    }
-
+    @Transactional
     public Response updateUser(Long userId, UserRequest userRequest) {
         var user = findUserById(userId);
         try{
@@ -35,7 +44,8 @@ public class UserController {
                 user.setName(userRequest.getName());
                 user.setEmail(userRequest.getEmail());
                 user.setCellphoneNumber(userRequest.getCellphoneNumber());
-                return Response.status(Response.Status.NO_CONTENT).build();
+                userRepository.flush();
+                return Response.status(Response.Status.OK).entity(mapUserToUserResponse(user)).build();
             }
         }catch (Exception e){
             throw new UserException(UserExceptionCode.F_I_002, e.getMessage());
@@ -51,7 +61,7 @@ public class UserController {
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
         }catch (Exception e){
-            throw new UserException(UserExceptionCode.F_I_003, e.getMessage());
+            throw new UserException(UserExceptionCode.F_I_002, e.getMessage());
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }

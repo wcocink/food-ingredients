@@ -8,6 +8,11 @@ public class UserException extends RuntimeException implements Serializable {
 
     UserExceptionCode userExceptionCode;
 
+    public UserException(UserExceptionCode userExceptionCode){
+        super();
+        this.userExceptionCode = userExceptionCode;
+    }
+
     public UserException(UserExceptionCode userExceptionCode, String message) {
         super(message);
         this.userExceptionCode = userExceptionCode;
