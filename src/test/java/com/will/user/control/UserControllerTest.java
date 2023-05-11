@@ -25,7 +25,6 @@ public class UserControllerTest {
     @Order(1)
     public void create_User_Test(){
         Response response = userController.createUser(new UserRequest("Test", "test@test.test", "123456789"));
-
         assertEquals(201,response.getStatus());
     }
 
@@ -53,7 +52,6 @@ public class UserControllerTest {
     @Order(4)
     public void update_User(){
         Response response = userController.updateUser(1L, new UserRequest("Test2", "test@test2.test","1234555"));
-
         assertEquals(200,response.getStatus());
         assertEquals(UserResponse.class, response.getEntity().getClass());
         assertEquals("UserResponse{name='Test2', email='test@test2.test', cellphoneNumber='1234555'}", response.getEntity().toString());
