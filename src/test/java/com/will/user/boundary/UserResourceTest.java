@@ -44,7 +44,7 @@ public class UserResourceTest {
 
     @Test
     @DisplayName("Should return all users created")
-    @Order(2)
+    @Order(3)
     public void listUsers(){
         given()
                 .contentType(ContentType.JSON)
@@ -57,7 +57,7 @@ public class UserResourceTest {
 
     @Test
     @DisplayName("Should return 204, user updated")
-    @Order(3)
+    @Order(4)
     public void updateUser(){
         var userRequest = new UserRequest();
         userRequest.setName("fooUpdated");
@@ -69,12 +69,12 @@ public class UserResourceTest {
                 .body(JsonbBuilder.create().toJson(userRequest))
                 .when()
                 .put("/1")
-                .then().statusCode(204);
+                .then().statusCode(200).body("size()", Matchers.greaterThanOrEqualTo(1));;
     }
 
     @Test
     @DisplayName("Should return 204, user deleted")
-    @Order(4)
+    @Order(5)
     public void deleteUser(){
         given()
                 .contentType(ContentType.JSON)

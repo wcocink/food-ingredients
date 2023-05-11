@@ -25,7 +25,6 @@ public class UserController {
         return userRepository.findAll().stream().map(this::mapUserToUserResponse).collect(Collectors.toList());
     }
 
-    @Transactional
     public Response createUser(UserRequest userRequest) {
         var user = mapUserRequestToUser(userRequest);
         try{
@@ -36,7 +35,6 @@ public class UserController {
         return Response.status(Response.Status.CREATED).entity(mapUserToUserResponse(user)).build();
     }
 
-    @Transactional
     public Response updateUser(Long userId, UserRequest userRequest) {
         var user = findUserById(userId);
         try{
