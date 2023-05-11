@@ -45,4 +45,13 @@ public class UserResponse implements Serializable {
     public int hashCode() {
         return Objects.hash(name, email, cellphoneNumber);
     }
+
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cellphoneNumber='" + cellphoneNumber + '\'' +
+                '}';
+    }
 }
