@@ -57,14 +57,4 @@ public class UserControllerTest {
         assertEquals("UserResponse{name='Test2', email='test@test2.test', cellphoneNumber='1234555'}", response.getEntity().toString());
     }
 
-//    @Test
-//    @DisplayName("Should update an user successfully")
-//    @Order(3)
-//    public void update_User_Test(){
-//
-//        assertThrows(UserException.class, () ->
-//                userController.createUser(new UserRequest("Test", "test@test.test", "123456789"))
-//        );
-//    }
-
 }
