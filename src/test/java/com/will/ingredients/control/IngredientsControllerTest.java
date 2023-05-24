@@ -24,28 +24,17 @@ public class IngredientsControllerTest {
     @DisplayName("Should create an ingredient successfully")
     @Order(1)
     public void create_Ingredient_Test(){
-        Response response = ingredientController.createIngredient(new IngredientRequest("Test", "test@test.test", "123456789"));
+        Response response = ingredientController.createIngredient(new IngredientRequest("Test", 200.0));
         assertEquals(201,response.getStatus());
     }
 
-//    @Test
-//    @DisplayName("Should throw an error when creating ingredient")
-//    @Order(2)
-//    public void create_User_Exception_Test(){
-//        try{
-//            ingredientController.createIngredient(new UserRequest("Test", "test@test.test", "123456789"));
-//        }catch (UserException e){
-//            assertEquals(UserExceptionCode.F_I_001, e.getExceptionCode());
-//        }
-//    }
-//
-//    @Test
-//    @DisplayName("Should list all ingredients successfully")
-//    @Order(3)
-//    public void list_Users_Test(){
-//        var usersList = ingredientController.listIngredients();
-//        assertEquals(1, usersList.size());
-//    }
+    @Test
+    @DisplayName("Should list all ingredients successfully")
+    @Order(2)
+    public void list_Ingredients_Test(){
+        var ingredients = ingredientController.listIngredients();
+        assertEquals(1, ingredients.size());
+    }
 //
 //    @Test
 //    @DisplayName("Should update an ingredient")

@@ -2,11 +2,13 @@ package com.will.ingredients.boundary;
 
 import com.will.ingredients.control.IngredientController;
 import com.will.ingredients.entity.IngredientRequest;
+import com.will.ingredients.entity.IngredientResponse;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/ingredients")
 public class IngredientsResource {
@@ -23,7 +25,7 @@ public class IngredientsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listIngredients() {
+    public List<IngredientResponse> listIngredients() {
         return ingredientController.listIngredients();
     }
 

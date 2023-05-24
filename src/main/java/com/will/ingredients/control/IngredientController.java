@@ -2,11 +2,16 @@ package com.will.ingredients.control;
 
 import com.will.ingredients.entity.Ingredient;
 import com.will.ingredients.entity.IngredientRequest;
+import com.will.ingredients.entity.IngredientResponse;
+import com.will.user.entity.User;
+import com.will.user.entity.UserResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @Transactional
@@ -20,8 +25,8 @@ public class IngredientController {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    public Response listIngredients() {
-        return Response.ok(ingredientRepository.findAll().list()).build();
+    public List<IngredientResponse> listIngredients() {
+        return ingredientRepository.findAll().stream().map(this::mapIngredientToIngredientResponse).collect(Collectors.toList());
     }
 
     public Response updateIngredient(Long ingredientId, IngredientRequest ingredientRequest) {
@@ -71,5 +76,11 @@ public class IngredientController {
         return ingredient;
     }
 
+    private IngredientResponse mapIngredientToIngredientResponse(Ingredient ingredient){
+        var ingredientResponse = new IngredientResponse();
+        ingredientResponse.setName(ingredient.getName());
+        ingredientResponse.setQuantityInKg(ingredient.getQuantityInKg());
+        return ingredientResponse;
+    }
 
 }
