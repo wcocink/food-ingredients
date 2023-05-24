@@ -1,5 +1,6 @@
 package com.will.ingredients.control;
 
+import com.will.ingredients.entity.IngredientRequest;
 import com.will.user.entity.UserRequest;
 import com.will.user.entity.UserResponse;
 import com.will.user.exceptions.UserException;
@@ -23,7 +24,7 @@ public class IngredientsControllerTest {
     @DisplayName("Should create an ingredient successfully")
     @Order(1)
     public void create_Ingredient_Test(){
-        Response response = ingredientController.createIngredient(new UserRequest("Test", "test@test.test", "123456789"));
+        Response response = ingredientController.createIngredient(new IngredientRequest("Test", "test@test.test", "123456789"));
         assertEquals(201,response.getStatus());
     }
 

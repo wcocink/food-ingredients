@@ -1,5 +1,8 @@
 package com.will.ingredients.entity;
 
+import lombok.Data;
+
+@Data
 public class IngredientRequest {
 
     private String name;
