@@ -1,5 +1,6 @@
 package com.will.user.boundary;
 
+import com.will.ingredients.control.IngredientController;
 import com.will.user.control.UserController;
 import com.will.user.entity.UserRequest;
 import com.will.user.entity.UserResponse;
@@ -15,6 +16,17 @@ public class UserResource {
 
     @Inject
     UserController userController;
+
+    @Inject
+    IngredientController ingredientController;
+
+    @GET
+    @Path("testHi")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String test() {
+        System.out.println(ingredientController.getHi());
+        return "done";
+    }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)

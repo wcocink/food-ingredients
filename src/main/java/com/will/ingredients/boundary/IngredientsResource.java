@@ -1,6 +1,7 @@
 package com.will.ingredients.boundary;
 
 import com.will.ingredients.control.IngredientController;
+import com.will.ingredients.entity.Ingredient;
 import com.will.ingredients.entity.IngredientRequest;
 import com.will.ingredients.entity.IngredientResponse;
 
@@ -16,6 +17,10 @@ public class IngredientsResource {
     @Inject
     IngredientController ingredientController;
 
+    @Inject
+    Ingredient ingredient;
+
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -27,6 +32,18 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<IngredientResponse> listIngredients() {
         return ingredientController.listIngredients();
+    }
+
+    @GET
+    @Path("testHi")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String test() {
+        this.ingredientController.setHi("1123");
+        System.out.println(ingredientController.getHi());
+        System.out.println(ingredient);
+//
+//        System.out.println(ingredientController.getHi());
+        return "done";
     }
 
     @GET

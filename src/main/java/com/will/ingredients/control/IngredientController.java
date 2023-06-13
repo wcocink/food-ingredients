@@ -3,8 +3,6 @@ package com.will.ingredients.control;
 import com.will.ingredients.entity.Ingredient;
 import com.will.ingredients.entity.IngredientRequest;
 import com.will.ingredients.entity.IngredientResponse;
-import com.will.user.entity.User;
-import com.will.user.entity.UserResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,6 +17,8 @@ public class IngredientController {
 
     @Inject
     IngredientRepository ingredientRepository;
+
+    public String hi;
 
     public Response createIngredient(IngredientRequest ingredientRequest){
         ingredientRepository.persist(mapIngredientRequestToIngredient(ingredientRequest));
@@ -81,6 +81,14 @@ public class IngredientController {
         ingredientResponse.setName(ingredient.getName());
         ingredientResponse.setQuantityInKg(ingredient.getQuantityInKg());
         return ingredientResponse;
+    }
+
+    public void setHi(String hi) {
+        this.hi = hi;
+    }
+
+    public String getHi() {
+        return hi;
     }
 
 }
