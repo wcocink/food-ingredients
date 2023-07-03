@@ -6,14 +6,19 @@ public class UserException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    ExceptionCode exceptionCode;
+    UserExceptionCode userExceptionCode;
 
-    public UserException(ExceptionCode exceptionCode, String message) {
-        super(message);
-        this.exceptionCode = exceptionCode;
+    public UserException(UserExceptionCode userExceptionCode){
+        super();
+        this.userExceptionCode = userExceptionCode;
     }
 
-    public ExceptionCode getExceptionCode() {
-        return exceptionCode;
+    public UserException(UserExceptionCode userExceptionCode, String message) {
+        super(message);
+        this.userExceptionCode = userExceptionCode;
+    }
+
+    public UserExceptionCode getExceptionCode() {
+        return userExceptionCode;
     }
 }

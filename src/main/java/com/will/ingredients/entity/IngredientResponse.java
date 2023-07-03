@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class IngredientRequest {
+public class IngredientResponse {
 
     private String name;
     private Double quantityInKg;

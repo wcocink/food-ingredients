@@ -92,7 +92,7 @@ public class UserResourceTest {
                 .body(JsonbBuilder.create().toJson(userRequest))
                 .when()
                 .put("/1")
-                .then().statusCode(204);
+                .then().statusCode(200).body("size()", Matchers.greaterThanOrEqualTo(1));;
     }
 
     @Test

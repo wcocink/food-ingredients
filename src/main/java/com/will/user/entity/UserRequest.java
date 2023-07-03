@@ -6,6 +6,15 @@ public class UserRequest {
     private String email;
     private String cellphoneNumber;
 
+    public UserRequest() {
+    }
+
+    public UserRequest(String name, String email, String cellphoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.cellphoneNumber = cellphoneNumber;
+    }
+
     public String getName() {
         return name;
     }
