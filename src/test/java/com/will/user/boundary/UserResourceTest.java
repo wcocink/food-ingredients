@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestHTTPEndpoint(UserResource.class)
 public class UserResourceTest {
 
+
     @Test
     @DisplayName("Should create an user successfully")
     @Order(1)
@@ -51,8 +52,8 @@ public class UserResourceTest {
         userRequest.setEmail("foo.bar@foobar.foo");
         userRequest.setCellphoneNumber("12345678");
 
-//        UserController uc = Mockito.mock(UserController.class);
-//        Mockito.when(uc.createUser(Mockito.any())).thenThrow(Exception.class);
+        UserRepository ur2 = Mockito.mock(UserRepository.class);
+        Mockito.doThrow(RuntimeException.class).when(ur2).persist(Mockito.any(User.class));
 
         Response response = given()
                 .contentType(ContentType.JSON).body(JsonbBuilder.create().toJson(userRequest))
@@ -65,7 +66,7 @@ public class UserResourceTest {
     }
 
     @Test
-    @DisplayName("Should return all users created")
+    @DisplayName("Should return all created users")
     @Order(3)
     public void listUsers(){
         given()
